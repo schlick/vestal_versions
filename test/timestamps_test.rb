@@ -1,8 +1,7 @@
 require 'test_helper'
-require 'mocha'
 
 class TimestampsTest < Test::Unit::TestCase
-  context 'The version' do
+  context "Timestamps for a version" do
     setup do
       time = Time.parse("28 Feb, 2010")
       Time.stubs(:now).returns(time)
@@ -18,11 +17,10 @@ class TimestampsTest < Test::Unit::TestCase
       assert_equal @current_time, @user.versions.last.updated_at
     end
 
-    should 'have timestamps equal to original timestamp' do
+    should 'equal the original timestamp' do
       @user.update_attributes(:first_name => 'Stephen', :original_timestamp => @original_timestamp)
       assert_equal @original_timestamp, @user.versions.last.created_at
       assert_equal @original_timestamp, @user.versions.last.updated_at
     end
-
   end
 end

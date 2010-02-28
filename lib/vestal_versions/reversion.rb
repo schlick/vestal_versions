@@ -14,6 +14,12 @@ module VestalVersions
         @version ||= last_version
       end
 
+      # Allows direct access to the updated_at value of the version.
+      # Returns the updated_at value of the parent object if version doesn't exist.
+      def version_created_at
+        versions.at(version) ? versions.at(version).created_at : created_at
+      end
+      
       # Accepts a value corresponding to a specific version record, builds a history of changes
       # between that version and the current version, and then iterates over that history updating
       # the object's attributes until the it's reverted to its prior state.
