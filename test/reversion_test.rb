@@ -64,5 +64,14 @@ class ReversionTest < Test::Unit::TestCase
         assert_equal attributes.except(*timestamps), @user.attributes.except(*timestamps)
       end
     end
+    
+    should "have a version created at" do
+      @user.versions.each do |version|
+        @user.revert_to(version)
+        assert_equal version.created_at, @user.version_created_at
+      end
+      @user.revert_to(1)
+      assert_equal @user.created_at, @user.version_created_at
+    end
   end
 end
